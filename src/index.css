@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-darkBg: #07090e;
+  --color-cardBg: #0f121d;
+  --color-tealGlow: #00e6b4;
+  --color-cyanGlow: #06b6d4;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: 'Outfit', sans-serif;
+    background-color: #07090e;
+    color: #F3F4F6;
+    overflow-x: hidden;
+    background-image: 
+      radial-gradient(circle at 80% 20%, rgba(0, 230, 180, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 15% 60%, rgba(6, 182, 212, 0.07) 0%, transparent 45%);
+    background-attachment: fixed;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #07090e;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e2230;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00e6b4;
+}
+
+/* Glowing animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px 2px rgba(0, 230, 180, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 35px 8px rgba(0, 230, 180, 0.6);
+  }
+}
+
+.animate-glow {
+  animation: pulseGlow 4s infinite;
+}
+
+@keyframes profileGlow {
+  0%, 100% {
+    box-shadow: 0 0 35px 2px rgba(0, 230, 180, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 70px 18px rgba(0, 230, 180, 0.55);
+  }
+}
+
+.animate-profile-glow {
+  animation: profileGlow 4s ease-in-out infinite;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, #00e6b4, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glass-card {
+  background: rgba(20, 24, 38, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 230, 180, 0.35);
+  box-shadow: 0 15px 35px -15px rgba(0, 230, 180, 0.25);
+  transform: translateY(-2px);
+}
+
+.nav-link-active {
+  color: #00e6b4;
+}
