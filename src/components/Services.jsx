@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import * as Icons from 'lucide-react';
 import api from '../services/api';
 
@@ -54,11 +55,40 @@ const Services = () => {
     return <IconComponent className="h-6 w-6 text-tealGlow" />;
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 80,
+        damping: 15,
+      },
+    },
+  };
+
   return (
     <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-darkBg">
       <div className="max-w-6xl mx-auto text-center space-y-12">
         {/* Section Header */}
-        <div className="space-y-4">
+        <motion.div 
+          className="space-y-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="inline-block px-4 py-1.5 rounded-full bg-tealGlow/10 border border-tealGlow/30 text-tealGlow text-sm font-semibold tracking-wide">
             Services
           </div>
@@ -66,14 +96,22 @@ const Services = () => {
           <p className="text-gray-400 text-base sm:text-lg">
             Professional web development services tailored to your needs
           </p>
-        </div>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 text-left"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           {services.map((service) => (
-            <div
+            <motion.div
               key={service._id || service.title}
-              className="glass-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between"
+              variants={cardVariants}
+              whileHover={{ y: -6, borderColor: 'rgba(0, 230, 180, 0.35)', boxShadow: '0 15px 30px -10px rgba(0, 230, 180, 0.15)' }}
+              className="glass-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between transition-colors duration-300"
             >
               <div className="space-y-5">
                 {/* Header Icon */}
@@ -97,9 +135,9 @@ const Services = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

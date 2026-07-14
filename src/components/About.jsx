@@ -1,11 +1,45 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const About = () => {
+  const headerVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6, ease: 'easeOut' }
+    }
+  };
+
+  const leftContentVariants = {
+    hidden: { opacity: 0, x: -50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.7, ease: 'easeOut', delay: 0.2 }
+    }
+  };
+
+  const rightContentVariants = {
+    hidden: { opacity: 0, x: 50 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.7, ease: 'easeOut', delay: 0.3 }
+    }
+  };
+
   return (
     <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-darkBg">
       <div className="max-w-4xl mx-auto text-center space-y-12">
         {/* Section Header */}
-        <div className="space-y-4">
+        <motion.div 
+          className="space-y-4"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+        >
           <div className="inline-block px-4 py-1.5 rounded-full bg-tealGlow/10 border border-tealGlow/30 text-tealGlow text-sm font-semibold tracking-wide">
             About Me
           </div>
@@ -13,12 +47,18 @@ const About = () => {
           <p className="text-gray-400 text-base sm:text-lg">
             Passionate about building scalable, full-stack web solutions
           </p>
-        </div>
+        </motion.div>
 
         {/* Content Block */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start text-left max-w-5xl mx-auto pt-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start text-left max-w-5xl mx-auto pt-6 overflow-hidden">
           {/* Paragraphs - col-span-7 */}
-          <div className="lg:col-span-7 space-y-6 text-gray-300 text-base sm:text-lg leading-relaxed">
+          <motion.div 
+            className="lg:col-span-7 space-y-6 text-gray-300 text-base sm:text-lg leading-relaxed"
+            variants={leftContentVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             <h3 className="text-2xl font-bold text-tealGlow mb-4">Who I Am</h3>
             <p>
               I'm a MERN Stack Developer with hands-on experience building scalable web applications using React.js, Node.js, Express.js, and MongoDB.
@@ -29,10 +69,16 @@ const About = () => {
             <p>
               I enjoy turning real-world problems into clean, maintainable code — from AI-powered platforms to real estate marketplaces — and I'm always exploring new technologies in the modern web ecosystem.
             </p>
-          </div>
+          </motion.div>
           
           {/* Quick Info Grid - col-span-5 */}
-          <div className="lg:col-span-5 glass-card p-6 sm:p-8 rounded-2xl border border-white/5 space-y-6">
+          <motion.div 
+            className="lg:col-span-5 glass-card p-6 sm:p-8 rounded-2xl border border-white/5 space-y-6"
+            variants={rightContentVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             <h3 className="text-xl font-bold text-white border-b border-white/5 pb-3">Personal Details</h3>
             <div className="space-y-4 text-sm sm:text-base">
               <div className="flex justify-between py-1.5 border-b border-white/5">
@@ -56,7 +102,7 @@ const About = () => {
                 <span className="text-emerald-400 font-semibold bg-emerald-500/10 px-2.5 py-0.5 rounded-full text-xs">Available</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

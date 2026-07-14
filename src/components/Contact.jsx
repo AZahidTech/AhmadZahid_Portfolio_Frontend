@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 import api from '../services/api';
 
@@ -49,11 +50,35 @@ const Contact = () => {
     }
   };
 
+  const leftVariants = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.6, ease: 'easeOut', delay: 0.1 }
+    }
+  };
+
+  const rightVariants = {
+    hidden: { opacity: 0, x: 40 },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.6, ease: 'easeOut', delay: 0.2 }
+    }
+  };
+
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-darkBg">
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Section Header */}
-        <div className="text-center space-y-4">
+        <motion.div 
+          className="text-center space-y-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="inline-block px-4 py-1.5 rounded-full bg-tealGlow/10 border border-tealGlow/30 text-tealGlow text-sm font-semibold tracking-wide">
             Contact
           </div>
@@ -61,11 +86,17 @@ const Contact = () => {
           <p className="text-gray-400 text-base sm:text-lg max-w-lg mx-auto">
             Have a project in mind, want to collaborate, or just want to say hi? Send me a message!
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch overflow-hidden">
           {/* Contact Details Card */}
-          <div className="lg:col-span-5 glass-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-8">
+          <motion.div 
+            className="lg:col-span-5 glass-card p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-8"
+            variants={leftVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             <div className="space-y-6">
               <h3 className="text-2xl font-bold text-white tracking-wide">Contact Information</h3>
               <p className="text-gray-400 leading-relaxed text-sm sm:text-base">
@@ -74,7 +105,7 @@ const Contact = () => {
 
               <div className="space-y-5 pt-4">
                 {/* Email */}
-                <div className="flex items-center space-x-4">
+                <motion.div whileHover={{ x: 5 }} className="flex items-center space-x-4">
                   <div className="h-10 w-10 rounded-lg bg-tealGlow/15 border border-tealGlow/20 flex items-center justify-center text-tealGlow">
                     <Mail className="h-5 w-5" />
                   </div>
@@ -84,10 +115,10 @@ const Contact = () => {
                       chaudaryahmad111@gmail.com
                     </a>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Phone */}
-                <div className="flex items-center space-x-4">
+                <motion.div whileHover={{ x: 5 }} className="flex items-center space-x-4">
                   <div className="h-10 w-10 rounded-lg bg-tealGlow/15 border border-tealGlow/20 flex items-center justify-center text-tealGlow">
                     <Phone className="h-5 w-5" />
                   </div>
@@ -97,10 +128,10 @@ const Contact = () => {
                       +92 304 4884867
                     </a>
                   </div>
-                </div>
+                </motion.div>
 
                 {/* Address */}
-                <div className="flex items-center space-x-4">
+                <motion.div whileHover={{ x: 5 }} className="flex items-center space-x-4">
                   <div className="h-10 w-10 rounded-lg bg-tealGlow/15 border border-tealGlow/20 flex items-center justify-center text-tealGlow">
                     <MapPin className="h-5 w-5" />
                   </div>
@@ -110,15 +141,19 @@ const Contact = () => {
                       Lahore, Pakistan
                     </span>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
-
-
-          </div>
+          </motion.div>
 
           {/* Contact Form Card */}
-          <div className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-2xl">
+          <motion.div 
+            className="lg:col-span-7 glass-card p-6 sm:p-8 rounded-2xl"
+            variants={rightVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+          >
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Alert Message */}
               {status && (
@@ -190,10 +225,12 @@ const Contact = () => {
               </div>
 
               {/* Submit Button */}
-              <button
+              <motion.button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-lg bg-tealGlow hover:bg-tealGlow/90 disabled:bg-tealGlow/50 text-darkBg font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-tealGlow/20 transition-all duration-300 disabled:cursor-not-allowed"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full py-3.5 rounded-lg bg-tealGlow hover:bg-tealGlow/90 disabled:bg-tealGlow/50 text-darkBg font-semibold flex items-center justify-center space-x-2 shadow-lg hover:shadow-tealGlow/20 transition-all duration-300 disabled:cursor-not-allowed cursor-pointer"
               >
                 {loading ? (
                   <>
@@ -206,9 +243,9 @@ const Contact = () => {
                     <span>Send Message</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

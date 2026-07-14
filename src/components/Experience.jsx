@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import api from '../services/api';
 
@@ -42,7 +43,13 @@ const Experience = () => {
     <section id="experience" className="py-20 px-4 sm:px-6 lg:px-8 bg-darkBg">
       <div className="max-w-4xl mx-auto text-center space-y-12">
         {/* Section Header */}
-        <div className="space-y-4">
+        <motion.div 
+          className="space-y-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.6 }}
+        >
           <div className="inline-block px-4 py-1.5 rounded-full bg-tealGlow/10 border border-tealGlow/30 text-tealGlow text-sm font-semibold tracking-wide">
             Experience
           </div>
@@ -50,14 +57,19 @@ const Experience = () => {
           <p className="text-gray-400 text-base sm:text-lg">
             Building experience through hands-on projects and professional roles
           </p>
-        </div>
+        </motion.div>
 
         {/* Experience Timeline Grid */}
         <div className="space-y-6">
-          {experiences.map((exp) => (
-            <div 
+          {experiences.map((exp, index) => (
+            <motion.div 
               key={exp._id || exp.company}
-              className="glass-card p-6 sm:p-8 rounded-2xl text-left border border-white/5 relative overflow-hidden transition-all duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: index * 0.15 }}
+              whileHover={{ y: -3, borderColor: 'rgba(0, 230, 180, 0.25)' }}
+              className="glass-card p-6 sm:p-8 rounded-2xl text-left border border-white/5 relative overflow-hidden transition-colors duration-300"
             >
               <div className="flex flex-col md:flex-row md:items-start md:space-x-6 space-y-4 md:space-y-0">
                 {/* Left Icon Badge */}
@@ -105,7 +117,7 @@ const Experience = () => {
                   )}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
